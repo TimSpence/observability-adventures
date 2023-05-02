@@ -29,3 +29,7 @@ curl http://127.0.0.1:8000/
 - :ballot_box_with_check: provide docker-compose.yml
 - :white_medium_square: route requests with flask
 - :ballot_box_with_check: pin versions to avoid accidental upgrades
+- :white_medium_square: add health check
+- :white_medium_square: add reverse proxy
+- :white_medium_square: add simulated slow upstream server
+- :white_medium_square: add example with process control delegated to supervisord
