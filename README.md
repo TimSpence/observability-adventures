@@ -13,11 +13,11 @@ Use this app to tune and benchmark in non-production environments.
 
 ### Building
 ```
-docker build --no-cache --tag myapp .
+docker-compose build myapp
 ```
 ### Running
 ```
-docker run -ti --rm --name myapp -p 8000:8000 myapp
+docker-compose up
 ```
 ### Testing
 ```
@@ -26,6 +26,6 @@ curl http://127.0.0.1:8000/
 
 # Roadmap
 - :white_medium_square: move configuration out of build and mount into container instead
-- :white_medium_square: provide docker-compose.yml
+- :ballot_box_with_check: provide docker-compose.yml
 - :white_medium_square: route requests with flask
 - :ballot_box_with_check: pin versions to avoid accidental upgrades
