@@ -11,5 +11,5 @@ services:
         source: ./myapp.py
         target: /app/myapp.py
       - type: bind
-        source: ./gunicorn_conf.py
-        target: /app/gunicorn_conf.py
+        source: ./gunicorn.conf.py
+        target: /app/gunicorn.conf.py
