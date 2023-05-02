@@ -1,6 +1,5 @@
 FROM python
 WORKDIR /app
-COPY ./myapp.py ./
 COPY ./requirements.txt ./
 COPY ./gunicorn_conf.py ./
 RUN pip install --upgrade pip --no-cache-dir

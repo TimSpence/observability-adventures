@@ -6,3 +6,7 @@ services:
     image: myapp
     ports:
       - "8000:8000"
+    volumes:
+      - type: bind
+        source: ./myapp.py
+        target: /app/myapp.py
