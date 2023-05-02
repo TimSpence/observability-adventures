@@ -25,7 +25,7 @@ curl http://127.0.0.1:8000/
 ```
 
 # Roadmap
-- :white_medium_square: move configuration out of build and mount into container instead
+- :ballot_box_with_check: move configuration out of build and mount into container instead
 - :ballot_box_with_check: provide docker-compose.yml
 - :white_medium_square: route requests with flask
 - :ballot_box_with_check: pin versions to avoid accidental upgrades
