@@ -3,13 +3,14 @@ services:
   myapp:
     build:
       context: .
+    command: ["gunicorn", "__init__:app"]
     image: myapp
     ports:
       - "8000:8000"
     volumes:
       - type: bind
-        source: ./myapp.py
-        target: /app/myapp.py
+        source: ./__init__.py
+        target: /app/__init__.py
       - type: bind
         source: ./gunicorn.conf.py
         target: /app/gunicorn.conf.py
