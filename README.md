@@ -20,8 +20,13 @@ docker-compose build myapp
 docker-compose up
 ```
 ### Testing
+**NOTE:** the service handles requests for these domains:
+1. example.com
+2. www.example.com
+
+Be sure to add both domain names to `/etc/hosts` file or other domain name resolver.
 ```
-curl http://127.0.0.1:8000/
+curl http://example.com/
 ```
 
 # Roadmap
@@ -30,6 +35,6 @@ curl http://127.0.0.1:8000/
 - :ballot_box_with_check: route requests with flask
 - :ballot_box_with_check: pin versions to avoid accidental upgrades
 - :ballot_box_with_check: add health check
-- :white_medium_square: add reverse proxy
+- :ballot_box_with_check: add reverse proxy
 - :white_medium_square: add simulated slow upstream server
 - :white_medium_square: add example with process control delegated to supervisord
