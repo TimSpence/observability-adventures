@@ -5,6 +5,12 @@ services:
       context: .
     command: ["gunicorn", "__init__:app"]
     image: myapp
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f --user-agent myapp-container-health-checker http://myapp:8000/health || exit 1"]
+      interval: 30s
+      timeout: 3s
+      retries: 2
+      start_period: 5s
     ports:
       - "8000:8000"
     volumes:
