@@ -27,6 +27,7 @@ docker-compose up
 Be sure to add both domain names to `/etc/hosts` file or other domain name resolver.
 ```
 curl http://example.com/
+curl http://example.com/slow-endpoint
 ```
 
 # Roadmap
@@ -36,5 +37,6 @@ curl http://example.com/
 - :ballot_box_with_check: pin versions to avoid accidental upgrades
 - :ballot_box_with_check: add health check
 - :ballot_box_with_check: add reverse proxy
-- :white_medium_square: add simulated slow upstream server
+- :ballot_box_with_check: add simulated slow upstream server
+- :white_medium_square: add simulated buggy endpoint
 - :white_medium_square: add example with process control delegated to supervisord
