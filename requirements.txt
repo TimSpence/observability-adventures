@@ -2,3 +2,4 @@ gunicorn==20.1.0
 flask==2.2.2
 PyMySQL==1.0.3
 Flask-SQLAlchemy==3.0.3
+setproctitle==1.2.2
