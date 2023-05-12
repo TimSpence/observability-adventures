@@ -29,3 +29,8 @@ def health_check():
 def slow_endpoint():
     db.session.query(text('1')).from_statement(text('SELECT sleep(10)')).all()
     return jsonify(slept=10)
+
+@app.route("/buggy-endpoint")
+def buggy_endpoint():
+    var = 1 / 0
+    return jsonify(buggy="definitely")
