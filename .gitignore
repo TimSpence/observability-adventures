@@ -7,3 +7,6 @@
 
 # ctags
 tags
+
+# dot env files
+.env
