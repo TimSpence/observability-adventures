@@ -2,8 +2,8 @@ version: "3.9"
 services:
   myapp:
     build:
-      context: .
-    command: ["gunicorn", "__init__:app"]
+      context: ./web/myapp
+    command: ["gunicorn", "myapp:app"]
     image: myapp
     depends_on:
       db:
@@ -18,10 +18,13 @@ services:
       - "8000:8000"
     volumes:
       - type: bind
-        source: ./__init__.py
-        target: /app/__init__.py
+        source: ./web/myapp/project/__init__.py
+        target: /app/project/__init__.py
       - type: bind
-        source: ./gunicorn.conf.py
+        source: ./web/myapp/myapp.py
+        target: /app/myapp.py
+      - type: bind
+        source: ./web/myapp/gunicorn.conf.py
         target: /app/gunicorn.conf.py
   mock-elb:
     image: nginx:1.23
@@ -38,10 +41,10 @@ services:
       - "80:80"
     volumes:
       - type: bind
-        source: default.conf
+        source: ./nginx/default.conf
         target: /etc/nginx/conf.d/default.conf
       - type: bind
-        source: nginx.conf
+        source: ./nginx/nginx.conf
         target: /etc/nginx/nginx.conf
   db:
     image: mysql:5.7
