@@ -1,0 +1,45 @@
+version: "3.9"
+services:
+  prometheus:
+    image: prom/prometheus:v2.33.5
+    ports:
+      - "9090:9090"
+    volumes:
+      - type: bind
+        source: ./prometheus.yml
+        target: /etc/prometheus/prometheus.yml
+    depends_on:
+      statsd-exporter:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "wget --spider -U prometheus-health-checker http://prometheus:9090/graph || exit 1"]
+      interval: 10s
+      timeout: 3s
+      retries: 2
+  grafana:
+    image: grafana/grafana:8.4.3
+    ports:
+      - "3000:3000"
+    volumes:
+      - type: bind
+        source: ./datasource.yml
+        target: /etc/grafana/provisioning/datasources/datasource.yml
+      - type: bind
+        source: ./dashboards.yml
+        target: /etc/grafana/provisioning/dashboards/dashboards.yml
+      - type: bind
+        source: ./gunicorn-monitoring.json
+        target: /etc/grafana/dashboards/gunicorn-monitoring.json
+    depends_on:
+      prometheus:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "wget --spider -U grafana-health-checker http://grafana:3000/ || exit 1"]
+      interval: 10s
+      timeout: 3s
+      retries: 2
+    environment:
+      GF_AUTH_ANONYMOUS_ENABLED: "true"
+      GF_AUTH_ANONYMOUS_ORG_ROLE: "Admin"
+      GF_AUTH_DISABLE_LOGIN_FORM: "true"
+

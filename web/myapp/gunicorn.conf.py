@@ -9,3 +9,4 @@ keepalive = 5
 threads = 3
 bind = "0.0.0.0:8000"
 statsd_host = "statsd-exporter:9125"
+statsd_prefix = "myapp"

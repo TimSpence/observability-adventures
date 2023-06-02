@@ -19,6 +19,15 @@ docker-compose build myapp
 ```
 docker-compose up
 ```
+#### Running with Grafana
+Alternatively you can run the service with a Grafana integration:
+```
+docker-compose -f docker-compose.yml -f docker-compose-grafana-prometheus.yml up
+```
+and stop the services like this:
+```
+docker-compose -f docker-compose.yml -f docker-compose-grafana-prometheus.yml down
+```
 ### Testing
 **NOTE:** the service handles requests for these domains:
 1. example.com
@@ -30,6 +39,9 @@ curl http://example.com/
 curl http://example.com/slow-endpoint
 ```
 
+# Acknowledgements
+- [Blueswen/gunicorn-monitoring](https://github.com/Blueswen/gunicorn-monitoring): high-quality example of integration with Grafana
+
 # Roadmap
 - :ballot_box_with_check: move configuration out of build and mount into container instead
 - :ballot_box_with_check: provide docker-compose.yml
@@ -38,5 +50,6 @@ curl http://example.com/slow-endpoint
 - :ballot_box_with_check: add health check
 - :ballot_box_with_check: add reverse proxy
 - :ballot_box_with_check: add simulated slow upstream server
-- :white_medium_square: add simulated buggy endpoint
+- :ballot_box_with_check: add simulated buggy endpoint
+- :ballot_box_with_check: integrate Grafana
 - :white_medium_square: add example with process control delegated to supervisord
