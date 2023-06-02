@@ -1,5 +1,16 @@
 version: "3.9"
 services:
+  statsd-exporter:
+    image: prom/statsd-exporter:v0.22.4
+    ports:
+      - "9125:9125"
+      - "9102:9102"
+    volumes:
+      - type: bind
+        source: ./statsd.conf
+        target: /statsd/statsd.conf
+    command:
+      - --statsd.mapping-config=/statsd/statsd.conf
   myapp:
     build:
       context: ./web/myapp
