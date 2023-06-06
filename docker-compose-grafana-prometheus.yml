@@ -6,7 +6,7 @@ services:
       - "9090:9090"
     volumes:
       - type: bind
-        source: ./prometheus.yml
+        source: ./configs/prometheus/prometheus.yml
         target: /etc/prometheus/prometheus.yml
     depends_on:
       statsd-exporter:
@@ -22,13 +22,13 @@ services:
       - "3000:3000"
     volumes:
       - type: bind
-        source: ./datasource.yml
+        source: ./configs/grafana/datasource.yml
         target: /etc/grafana/provisioning/datasources/datasource.yml
       - type: bind
-        source: ./dashboards.yml
+        source: ./configs/grafana/dashboards.yml
         target: /etc/grafana/provisioning/dashboards/dashboards.yml
       - type: bind
-        source: ./gunicorn-monitoring.json
+        source: ./configs/grafana/gunicorn-monitoring.json
         target: /etc/grafana/dashboards/gunicorn-monitoring.json
     depends_on:
       prometheus:

@@ -7,7 +7,7 @@ services:
       - "9102:9102"
     volumes:
       - type: bind
-        source: ./statsd.conf
+        source: ./configs/statsd/statsd.conf
         target: /statsd/statsd.conf
     command:
       - --statsd.mapping-config=/statsd/statsd.conf
@@ -52,10 +52,10 @@ services:
       - "80:80"
     volumes:
       - type: bind
-        source: ./nginx/default.conf
+        source: ./configs/nginx/default.conf
         target: /etc/nginx/conf.d/default.conf
       - type: bind
-        source: ./nginx/nginx.conf
+        source: ./configs/nginx/nginx.conf
         target: /etc/nginx/nginx.conf
   db:
     image: mysql:5.7
