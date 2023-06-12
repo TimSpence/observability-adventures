@@ -28,6 +28,19 @@ and stop the services like this:
 ```
 docker-compose -f docker-compose.yml -f docker-compose-grafana-prometheus.yml down
 ```
+#### Running with Datadog
+Alternatively you can run the service with a Grafana integration.  This will require a Datadog API key.
+
+Copy `.env.example` to a new file named `.env`, uncomment the line containing `DD_API_KEY`, and add your key.
+
+Start the services with this command:
+```
+docker-compose -f docker-compose-datadog.yml up
+```
+and stop the services like this:
+```
+docker-compose -f docker-compose-datadog.yml down
+```
 ### Testing
 **NOTE:** the service handles requests for these domains:
 1. example.com
