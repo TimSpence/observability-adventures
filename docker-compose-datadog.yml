@@ -10,34 +10,34 @@ services:
       - DD_API_KEY=${DD_API_KEY}
       - DD_LOGS_ENABLED=true
       - DD_LOGS_CONFIG_CONTAINER_COLLECT_ALL=true
-      - DD_CONTAINER_EXCLUDE="name:datadog-agent"
+      - DD_LOGS_CONFIG_USE_HTTP=true
+      - DD_CONTAINER_EXCLUDE_LOGS=name:datadog-agent
       - DD_PROCESS_AGENT_ENABLED=true
-      - DD_DOCKER_LABELS_AS_TAGS={"my.custom.label.team":"team"}
-      - DD_TAGS='env:dd101-dev'
-      - DD_HOSTNAME=dd101-dev-host
       - DD_DOGSTATSD_NON_LOCAL_TRAFFIC=true
-      - DD_APM_NON_LOCAL_TRAFFIC=true
     ports:
       - 8125:8125/udp
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - /proc/:/host/proc/:ro
       - /sys/fs/cgroup/:/host/sys/fs/cgroup:ro
+      - type: bind
+        source: configs/datadog/gunicorn/conf.yaml
+        target: /etc/datadog-agent/conf.d/gunicorn.d/conf.yaml
+      - type: volume
+        source: gunicorn_logs
+        target: /var/log/gunicorn
+        read_only: true
   myapp:
     extends:
       file: docker-compose.yml
       service: myapp
-    labels:
-      com.datadoghq.tags.env: 'prod'
-      com.datadoghq.tags.service: 'myapp'
-      com.datadoghq.tags.version: '2.1'
-      my.custom.label.team: 'myapp'
-      com.datadoghq.ad.check_names: '["gunicorn"]'
-      com.datadoghq.ad.init_configs: '[{}]'
-        #com.datadoghq.ad.instances: '[{"host":"%%host%%", "port":8000,"username":"datadog","password":"datadog"}]'
-      com.datadoghq.ad.instances: '[{"host":"%%host%%", "port":8000}]'
-      com.datadoghq.ad.logs: '[{"source": "gunicorn", "service": "myapp"}]'
-      com.datadog.ad.proc_name: 'myapp'
+    volumes:
+      - type: volume
+        source: gunicorn_logs
+        target: /var/log/gunicorn
+      - type: bind
+        source: ./web/myapp/gunicorn-log-to-disk.conf.py
+        target: /app/gunicorn.conf.py
   db:
     extends:
       file: docker-compose.yml
@@ -61,3 +61,4 @@ services:
 
 volumes:
   dbdata:
+  gunicorn_logs:
