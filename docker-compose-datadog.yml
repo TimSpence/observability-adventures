@@ -4,6 +4,8 @@ services:
     extends:
       file: docker-compose.yml
       service: statsd-exporter
+    command:
+      - --statsd.relay.address=datadog-agent:8125
   datadog-agent:
     image: 'datadog/agent:7.31.1'
     environment:
