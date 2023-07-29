@@ -45,6 +45,7 @@ docker-compose -f docker-compose-datadog.yml down
 **NOTE:** the service handles requests for these domains:
 1. example.com
 2. www.example.com
+3. grafana.example.com
 
 Be sure to add both domain names to `/etc/hosts` file or other domain name resolver.
 ```

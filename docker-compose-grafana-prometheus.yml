@@ -1,5 +1,16 @@
 version: "3.9"
 services:
+  mock-elb:
+    extends:
+      file: docker-compose.yml
+      service: mock-elb
+    depends_on:
+      grafana:
+        condition: service_healthy
+    volumes:
+      - type: bind
+        source: ./configs/nginx/grafana.conf
+        target: /etc/nginx/conf.d/grafana.conf
   prometheus:
     image: prom/prometheus:v2.33.5
     ports:
