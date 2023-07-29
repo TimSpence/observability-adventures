@@ -1,5 +1,5 @@
 import pymysql
-from flask import Flask, jsonify
+from flask import Flask, jsonify, redirect
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.sql import text
 
@@ -34,3 +34,7 @@ def slow_endpoint():
 def buggy_endpoint():
     var = 1 / 0
     return jsonify(buggy="definitely")
+
+@app.route("/redirect")
+def redirectme():
+    return redirect('/')
