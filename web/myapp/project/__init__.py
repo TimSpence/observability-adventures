@@ -1,3 +1,5 @@
+import time
+
 import pymysql
 from flask import Flask, jsonify, redirect
 from flask_sqlalchemy import SQLAlchemy
@@ -43,3 +45,10 @@ def buggy_endpoint():
 @app.route("/redirect")
 def redirectme():
     return redirect("/")
+
+
+@app.route("/sleep/<length>")
+def sleep(length):
+    seconds = int(length)
+    time.sleep(seconds)
+    return jsonify(slept=seconds)
